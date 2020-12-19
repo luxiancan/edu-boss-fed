@@ -32,7 +32,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .el-container {
   min-height: 100vh;
-  // min-width: 980px;
+  min-width: 960px;
 }
 
 .el-aside {
