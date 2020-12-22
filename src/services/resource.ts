@@ -19,6 +19,21 @@ export const getAllResources = () => {
   })
 }
 
+export const createOrUpdate = (data: any) => {
+  return request({
+    method: 'POST',
+    url: '/boss/resource/saveOrUpdate',
+    data
+  })
+}
+
+export const getResourceById = (id: string | number) => {
+  return request({
+    method: 'GET',
+    url: `/boss/resource/${id}`
+  })
+}
+
 export const allocateRoleResources = (data: any) => {
   return request({
     method: 'POST',

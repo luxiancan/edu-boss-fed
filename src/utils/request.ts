@@ -70,6 +70,7 @@ request.interceptors.response.use(function (response) {
           if (!res.data.success) {
             throw new Error('刷新 token 失败')
           }
+
           // 刷新 token 成功了
           store.commit('setUser', res.data.content)
           // 把 requests 队列中的请求重新发出去

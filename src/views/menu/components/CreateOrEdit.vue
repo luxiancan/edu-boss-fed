@@ -4,8 +4,8 @@
       <div slot="header" class="clearfix">
         <span>{{ isEdit ? '编辑菜单' : '添加菜单' }}</span>
       </div>
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="菜单名称">
+      <el-form ref="form" :model="form" label-width="80px" :rules="rules">
+        <el-form-item label="菜单名称" prop="name">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="菜单路径">
@@ -51,6 +51,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { createOrUpdateMenu, getEditMenuInfo } from '@/services/menu'
+import { Form } from 'element-ui'
 
 export default Vue.extend({
   name: 'MenuCreateOrEdit',
@@ -70,6 +71,11 @@ export default Vue.extend({
         orderNum: 0,
         description: '123',
         shown: false
+      },
+      rules: {
+        name: [
+          { required: true, message: '请输入菜单名称', trigger: 'blur' }
+        ]
       },
       parentMenuList: [] // 父级菜单列表
     }
@@ -91,12 +97,17 @@ export default Vue.extend({
     },
 
     async onSubmit () {
-      // 1. 表单验证
-      // 2. 验证通过，提交表单
-      const { data } = await createOrUpdateMenu(this.form)
-      if (data.code === '000000') {
-        this.$message.success('提交成功')
-        this.$router.back()
+      try {
+        // 1. 表单验证
+        await (this.$refs.form as Form).validate()
+        // 2. 验证通过，提交表单
+        const { data } = await createOrUpdateMenu(this.form)
+        if (data.code === '000000') {
+          this.$message.success('提交成功')
+          this.$router.back()
+        }
+      } catch (e) {
+        console.log(e)
       }
     }
   }
