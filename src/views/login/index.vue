@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <div class="tips">欢迎进入卢显灿构建的后台管理系统~</div>
     <el-form class="login-form" label-position="top" ref="form"
       :model="form" label-width="80px" :rules="rules">
       <el-form-item label="手机号" prop="phone">
@@ -67,8 +68,14 @@ export default Vue.extend({
 .login {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  .tips {
+    margin-bottom: 16px;
+    font-size: 16px;
+    color: #666;
+  }
   .login-form {
     width: 300px;
     background: #fff;
